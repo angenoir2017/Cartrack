@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import {SotralPage} from '../sotral/sotral';
+
 /**
  * Generated class for the TranportPublicPage page.
  *
