@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 /**
  * Generated class for the ZemidjanPage page.
@@ -15,7 +17,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ZemidjanPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private geo: Geolocation,private platform: Platform) {
+    platform.ready().then(() => {
+      this.geo.getCurrentPosition().then(resp => {
+        console.log(resp.coords.latitude);
+        console.log(resp.coords.longitude);
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+      
+
+    });
   }
 
   ionViewDidLoad() {
