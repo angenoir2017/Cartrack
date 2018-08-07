@@ -5,7 +5,10 @@ import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { TranportPublicPage } from '../pages/tranport-public/tranport-public';
+import {BusPage} from "../pages/bus/bus";
+import {TaxiPage} from "../pages/taxi/taxi";
+import {ZemidjanPage} from "../pages/zemidjan/zemidjan";
+
 import { HomePage } from '../pages/home/home';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -20,7 +23,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TranportPublicPage,
+    BusPage,
+    TaxiPage,
+    ZemidjanPage,
     TabsPage
   ],
   imports: [
@@ -33,7 +38,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TranportPublicPage,
+    BusPage,
+    TaxiPage,
+    ZemidjanPage,
     TabsPage
   ],
   providers: [

@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home';
+import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
+
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = TabsPage;
+
+  menus =[
+    {title:'Acceuil', component: HomePage},
+    {title:'About', component:AboutPage},
+    {title:'Contact', component: ContactPage}
+
+  ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -18,5 +30,9 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+  onPage(m){
+    //  console.log("Ca marche le click");
+    this.rootPage= m.component;
   }
 }
