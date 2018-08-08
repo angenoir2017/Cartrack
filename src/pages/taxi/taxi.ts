@@ -18,7 +18,7 @@ export class TaxiPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad TaxiPage');
   }
 
