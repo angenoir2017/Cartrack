@@ -17,38 +17,8 @@
   </ion-navbar>
 </ion-header>
 
+<ion-content  class="app-content">
 
-
-
-<ion-content padding>
-  <div padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button large value="Carte">
-        <ion-icon name="map"></ion-icon>
-        Carte
-      </ion-segment-button>
-      <ion-segment-button value="Proposition">
-        <ion-icon name="notifications-outline"></ion-icon>
-        Propositions
-      </ion-segment-button>
-    </ion-segment>
-  </div>
-
-  <div [ngSwitch]="pet">
-    <ion-list *ngSwitchCase="'Carte'">
-      <ion-item>
-      </ion-item>
-      ...
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'Proposition'">
-      <ion-item>
-
-      </ion-item>
-      ...
-    </ion-list>
-  </div>
-
-
+    <div id="map" style="width: 100%; height: 100%;"></div>
 
 </ion-content>
