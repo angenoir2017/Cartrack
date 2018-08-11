@@ -3,22 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import {BusPage} from "../pages/bus/bus";
 import {TaxiPage} from "../pages/taxi/taxi";
 import {ZemidjanPage} from "../pages/zemidjan/zemidjan";
-
+import {ParametrePage} from "../pages/parametre/parametre";
 import { HomePage } from '../pages/home/home';
+import { CartePage } from '../pages/carte/carte';
 
-import { TabsPage } from '../pages/tabs/tabs';
+
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GeocoderProvider } from '../providers/geocoder/geocoder';
+
 
 @NgModule({
   declarations: [
@@ -29,11 +33,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BusPage,
     TaxiPage,
     ZemidjanPage,
-    TabsPage
+    ParametrePage,
+    CartePage
   ],
   imports: [
     BrowserModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,13 +51,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BusPage,
     TaxiPage,
     ZemidjanPage,
-    TabsPage
+    ParametrePage,
+    CartePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation
+    Geolocation,
+    GeocoderProvider,
+    NativeGeocoder
   ]
 })
 export class AppModule {}

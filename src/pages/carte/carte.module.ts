@@ -9,5 +9,6 @@ import { CartePage } from './carte';
   imports: [
     IonicPageModule.forChild(CartePage),
   ],
+  entryComponents: [CartePage]
 })
 export class CartePageModule {}
