@@ -14,42 +14,13 @@
       <ion-icon name="bus" item-start>
       </ion-icon> Cartrak
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Ad markers</button>
+    </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
-
-
-
 <ion-content padding>
-
-  <div padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="Carte">
-        <ion-icon name="map"></ion-icon>
-        Carte
-      </ion-segment-button>
-      <ion-segment-button value="Proposition">
-        <ion-icon name="notifications-outline"></ion-icon>
-        Propositions
-      </ion-segment-button>
-    </ion-segment>
-  </div>
-
-  <div [ngSwitch]="pet">
-    <ion-list *ngSwitchCase="'Carte'">
-      <ion-item>
-      </ion-item>
-      ...
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'Proposition'">
-      <ion-item>
-
-      </ion-item>
-      ...
-    </ion-list>
-  </div>
-
-
-
+  <div #map id="map"> </div>
 </ion-content>

@@ -3,10 +3,15 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
-import { HomePage } from '../pages/home/home';
+
+
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { BusPage } from '../pages/bus/bus';
+import { ZemidjanPage } from '../pages/zemidjan/zemidjan';
+import { TaxiPage } from '../pages/taxi/taxi';
+import {ParametrePage} from "../pages/parametre/parametre";
+import {CartePage} from "../pages/carte/carte";
 
 
 
@@ -14,13 +19,16 @@ import { ContactPage } from '../pages/contact/contact';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
+  rootPage:any =CartePage;
 
   menus =[
-    {title:'Acceuil', component: HomePage},
+    {title:'Map', component: CartePage},
+    {title:'Bus', component: BusPage},
+    {title:'Zemidjan', component: ZemidjanPage},
+    {title:'Taxi', component:TaxiPage},
+    {title:'Parametre', component: ParametrePage},
     {title:'About', component:AboutPage},
     {title:'Contact', component: ContactPage}
-
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
