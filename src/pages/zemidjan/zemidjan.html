@@ -15,10 +15,20 @@
       </ion-icon> Cartrak
     </ion-title>
 </ion-navbar>
+  <ion-toolbar color="primary">
+
+    <!--  [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" pour recuperer les saisis de l'utilisateur
+    on doit faire un travail sur le fichier ts de cet HTML
+    -->
+    <ion-searchbar  placeholder="Où voulez-vous aller ?"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
 
-<ion-content padding>
+<ion-content >
+  <div class="map-wrapper">
 
+    <div #map id="map"></div>
+  </div>
 </ion-content>
