@@ -13,7 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { CartePage } from '../pages/carte/carte';
 
 
-
+import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
@@ -57,6 +57,7 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
     StatusBar,
     SplashScreen,
     GoogleMaps,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GeocoderProvider,
     NativeGeocoder

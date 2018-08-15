@@ -14,13 +14,20 @@
       <ion-icon name="bus" item-start>
       </ion-icon> Cartrak
     </ion-title>
-    <ion-buttons end>
 
-    </ion-buttons>
   </ion-navbar>
+  <ion-toolbar color="primary">
 
+    <!--  [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" pour recuperer les saisis de l'utilisateur
+    on doit faire un travail sur le fichier ts de cet HTML
+    -->
+    <ion-searchbar  placeholder="Ou allez vous ?"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div class="map-wrapper">
 
+    <div #map id="map"></div>
+  </div>
 </ion-content>
