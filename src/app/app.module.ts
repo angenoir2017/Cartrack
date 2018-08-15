@@ -13,10 +13,10 @@ import { HomePage } from '../pages/home/home';
 import { CartePage } from '../pages/carte/carte';
 
 
-import { Geolocation } from '@ionic-native/geolocation';
+
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { GoogleMaps } from '@ionic-native/google-maps';
-import { IonicStorageModule } from '@ionic/storage';
+
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,7 +38,6 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
   ],
   imports: [
     BrowserModule,
-    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
 
   ],
@@ -59,7 +58,6 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
     SplashScreen,
     GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation,
     GeocoderProvider,
     NativeGeocoder
   ]

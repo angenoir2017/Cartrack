@@ -1,26 +1,17 @@
 <ion-menu [content]="content" >
-  <ion-header>
-    <ion-navbar color ="primary">
-      <ion-title>
-        <ion-icon name="bus" item-start>
-        </ion-icon> Cartrak
-      </ion-title>
-    </ion-navbar>
+  <ion-header class="bar-profile">
+
+    <div class="profile">
+      <img class="profile-picture" src="http://ionicframework.com/img/docs/mcfly.jpg" />
+      <h3 class="name">Cartrack</h3>
+    </div>
+
   </ion-header>
-  <ion-content>
-    <ion-card>
 
-      <ion-card-header style="background: #222222;">
-        Card Header
-      </ion-card-header>
-
-      <ion-card-content>
-        <!-- Add card content here! -->
-      </ion-card-content>
-
-    </ion-card>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let m of menus" (click)="onPage(m)">
+  <ion-content class="my-container">
+    <ion-list no-lines="" >
+      <button menuClose ion-item *ngFor="let m of menus" (click)="onPage(m)" class="items">
+        <ion-icon name="{{m.icon}}" item-left></ion-icon>
         {{m.title}}
       </button>
     </ion-list>

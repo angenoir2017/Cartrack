@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 
-import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { BusPage } from '../pages/bus/bus';
 import { ZemidjanPage } from '../pages/zemidjan/zemidjan';
@@ -22,13 +21,12 @@ export class MyApp {
   rootPage:any =CartePage;
 
   menus =[
-    {title:'Map', component: CartePage},
-    {title:'Bus', component: BusPage},
-    {title:'Zemidjan', component: ZemidjanPage},
-    {title:'Taxi', component:TaxiPage},
-    {title:'Parametre', component: ParametrePage},
-    {title:'About', component:AboutPage},
-    {title:'Contact', component: ContactPage}
+    {title:'Cartrack', icon: 'map', component: CartePage},
+    {title:'Bus', icon: 'bus', component: BusPage},
+    {title:'Zemidjan', icon: 'bicycle', component: ZemidjanPage},
+    {title:'Taxi', icon: 'car' ,component:TaxiPage},
+    {title:'Paramètre', icon: 'cog', component: ParametrePage},
+    {title:' Nous Contacter', icon: 'contact', component: ContactPage}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
