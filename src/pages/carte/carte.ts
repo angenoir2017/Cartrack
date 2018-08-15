@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,  NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
-
 declare var google;
+import {googlemaps} from 'googlemaps';
 
 /**
  * Ici sera chargé le composant de google map avec ses differents parametres
@@ -17,16 +15,35 @@ declare var google;
   templateUrl: 'carte.html'
 })
 export class CartePage  {
+  autocompleteItems: any;
+  autocomplete: any;
+  GoogleAutocomplete:any;
+  placesService: any;
 
 
   public map;
 
-  constructor(public navCtrl: NavController,public navParams: NavParams, private geolocation: Geolocation) {
-
-
+  constructor(public navCtrl: NavController,public navParams: NavParams, public zone: NgZone, private geolocation: Geolocation) {
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
   }
 
-
+  updateSearchResults(){
+    if (this.autocomplete.input == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        this.zone.run(() => {
+          predictions.forEach((prediction) => {
+            this.autocompleteItems.push(prediction);
+          });
+        });
+      });
+  }
 
   //@ Créons a present la carte google avec une longLat en parametre
   createMap(){
