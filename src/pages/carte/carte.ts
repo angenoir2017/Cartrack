@@ -46,13 +46,12 @@ export class CartePage  {
   }
 
   //@ Créons a present la carte google avec une longLat en parametre
-  createMap(){
-    // Obtenir la position du telephone
-    this.geolocation.getCurrentPosition().then(location => {
+  createMap(position: any){
+
 
       //On le converti en un objet de longitude et de latitude de google map
       //lui meme si non la carte ne fonctionnera pas avec les longLat de geolocation
-      let latLng = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
       //Definissons les options primaires de la Map(Carte de Cartrack)
       let mapOptions ={
@@ -67,15 +66,32 @@ export class CartePage  {
       let map = new google.maps.Map(mapEl, mapOptions);
 
       return map;
-    });
-
-
   }
 
+  chargerMapSimple(){
+    let mapEle: HTMLElement = document.getElementById('map');
+    this.map = new google.maps.Map(mapEle, {
+      zoom: 12
+    });
+  }
+//@ ici nous definissons les condition de chargement de la carte
+  //a savoir la condition de d'affichage de la carte. soit la detection de l'emplacement du telephone
+
+  getPosition(): any {
+    // Obtenir la position du telephone
+    this.geolocation.getCurrentPosition().then(resp => {
+      this.map = this.createMap(resp);
+    }).catch((error) => {
+      // charger la carte meme si ca foire
+      this.chargerMapSimple();
+
+      console.log(error);
+    });
+  }
 
   //@ ici nous initialisons l'affichage avec la methode de creation de la carte
    ionViewDidEnter() {
-    this.map = this.createMap();
+     this.getPosition();
   }
 
 
