@@ -19,6 +19,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
@@ -38,7 +39,8 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+
 
   ],
   bootstrap: [IonicApp],

@@ -9,7 +9,7 @@
   </ion-header>
 
   <ion-content class="my-container">
-    <ion-list no-lines="" >
+    <ion-list no-lines >
       <button menuClose ion-item *ngFor="let m of menus" (click)="onPage(m)" class="items">
         <ion-icon name="{{m.icon}}" item-left></ion-icon>
         {{m.title}}
