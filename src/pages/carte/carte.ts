@@ -1,8 +1,11 @@
-import { Component,  NgZone } from '@angular/core';
+import { Component,  NgZone,ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 declare var google;
 import {googlemaps} from 'googlemaps';
+import {ILatLng} from "@ionic-native/google-maps";
+
+
 
 /**
  * Ici sera chargé le composant de google map avec ses differents parametres
@@ -13,22 +16,87 @@ import {googlemaps} from 'googlemaps';
 @Component({
   selector: 'page-carte',
   templateUrl: 'carte.html'
+
 })
 export class CartePage  {
+  @ViewChild('map') mapElement: ElementRef;
   autocompleteItems: any;
   autocomplete: any;
   GoogleAutocomplete:any;
   placesService: any;
 
+  map: any;
 
-  public map;
 
   constructor(public navCtrl: NavController,public navParams: NavParams, public zone: NgZone, private geolocation: Geolocation) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
+
+
+
+
   }
 
+//@ ici nous initialisons l'affichage avec la methode de creation de la carte
+  ionViewDidLoad() {
+   this.initializeMap();
+
+  }
+//@ ici nous definissons les condition de chargement de la carte
+  //a savoir la condition de d'affichage de la carte. soit la detection de l'emplacement du telephone
+
+
+  initializeMap() {
+
+
+
+    let locationOptions = {timeout: 10000, enableHighAccuracy: true};
+
+    this.geolocation.getCurrentPosition(locationOptions).then((position) => {
+
+      let options = {
+        center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+      /* Show our lcoation */
+      this.map = new google.maps.Map(document.getElementById("map"), options);
+
+      /* We can show our location only if map was previously initialized */
+      this.showMyLocation();
+      //init autocomplete
+
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+  }
+
+  showMyLocation(){
+
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: this.map.getCenter()
+    });
+
+    let markerInfo = "<h4>You are here!</h4>";
+
+    let infoModal = new google.maps.InfoWindow({
+      content: markerInfo
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoModal.open(this.map, marker);
+    });
+  }
+
+
+
+  //pour la recherche de place
   updateSearchResults(){
     if (this.autocomplete.input == '') {
       this.autocompleteItems = [];
@@ -40,59 +108,15 @@ export class CartePage  {
         this.zone.run(() => {
           predictions.forEach((prediction) => {
             this.autocompleteItems.push(prediction);
+
+
           });
         });
       });
   }
 
-  //@ Créons a present la carte google avec une longLat en parametre
-  createMap(position: any){
 
 
-      //On le converti en un objet de longitude et de latitude de google map
-      //lui meme si non la carte ne fonctionnera pas avec les longLat de geolocation
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      //Definissons les options primaires de la Map(Carte de Cartrack)
-      let mapOptions ={
-        center:latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI:true
-      }
-
-      //Ici on obtient l'element du HTML qui doit afficher la carte
-      let mapEl = document.getElementById('map');
-      let map = new google.maps.Map(mapEl, mapOptions);
-
-      return map;
-  }
-
-  chargerMapSimple(){
-    let mapEle: HTMLElement = document.getElementById('map');
-    this.map = new google.maps.Map(mapEle, {
-      zoom: 12
-    });
-  }
-//@ ici nous definissons les condition de chargement de la carte
-  //a savoir la condition de d'affichage de la carte. soit la detection de l'emplacement du telephone
-
-  getPosition(): any {
-    // Obtenir la position du telephone
-    this.geolocation.getCurrentPosition().then(resp => {
-      this.map = this.createMap(resp);
-    }).catch((error) => {
-      // charger la carte meme si ca foire
-      this.chargerMapSimple();
-
-      console.log(error);
-    });
-  }
-
-  //@ ici nous initialisons l'affichage avec la methode de creation de la carte
-   ionViewDidEnter() {
-     this.getPosition();
-  }
 
 
 }
