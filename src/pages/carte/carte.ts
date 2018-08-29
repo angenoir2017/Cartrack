@@ -1,10 +1,9 @@
-import { Component,  NgZone,ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-declare var google;
-import {googlemaps} from 'googlemaps';
-import {ILatLng} from "@ionic-native/google-maps";
 
+import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage,NavController, Platform} from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Observable } from 'rxjs/Observable';
+declare var google: any;
 
 
 /**
@@ -20,18 +19,25 @@ import {ILatLng} from "@ionic-native/google-maps";
 })
 export class CartePage  {
   @ViewChild('map') mapElement: ElementRef;
-  autocompleteItems: any;
-  autocomplete: any;
-  GoogleAutocomplete:any;
-  placesService: any;
-
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  addressElement: HTMLInputElement = null;
+  search: boolean = false;
+  error: any;
+  public latitude: any;
+  public longitude: any;
+  destinationclient: any = '';
+  MyLocation: any;
   map: any;
+  switch: string = "map";
 
 
-  constructor(public navCtrl: NavController,public navParams: NavParams, public zone: NgZone, private geolocation: Geolocation) {
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+
+  constructor(public navCtrl: NavController,
+
+              public zone: NgZone,
+              private geolocation: Geolocation,
+               public platform: Platform,) {
+
 
 
 
@@ -67,12 +73,86 @@ export class CartePage  {
       /* We can show our location only if map was previously initialized */
       this.showMyLocation();
       //init autocomplete
+      this.initAutocomplete();
 
 
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
+
+
+  initAutocomplete(): void {
+    // reference : https://github.com/driftyco/ionic/issues/7223
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 10
+      };
+      this.map.setOptions(options);
+      this.addMarker(location, "Mein gesuchter Standort");
+
+
+    });
+  }
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+         // sub.complete();
+        }
+
+      });
+    });
+  }
+  mapsSearchBar(ev: any) {
+    // set input to the value of the searchbar
+    this.search = ev.target.value;
+    console.log(ev);
+    const autocomplete = new google.maps.places.Autocomplete(ev);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          sub.next(place.geometry.location);
+          //sub.complete();
+        }
+
+      });
+    });
+  }
+  addMarker(position, content) {
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: position
+    });
+    return marker;
+
+
+  }
+
+
 
   showMyLocation(){
 
@@ -95,27 +175,7 @@ export class CartePage  {
   }
 
 
-
   //pour la recherche de place
-  updateSearchResults(){
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-      (predictions, status) => {
-        this.autocompleteItems = [];
-        this.zone.run(() => {
-          predictions.forEach((prediction) => {
-            this.autocompleteItems.push(prediction);
-
-
-          });
-        });
-      });
-  }
-
-
 
 
 
