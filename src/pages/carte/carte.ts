@@ -1,6 +1,7 @@
 
 import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage,NavController, Platform} from 'ionic-angular';
+import { IonicPage,NavController, Platform, AlertController} from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from 'rxjs/Observable';
 declare var google: any;
@@ -25,10 +26,13 @@ export class CartePage  {
   error: any;
   public latitude: any;
   public longitude: any;
-  destinationclient: any = '';
+  public Destination: any =null
   MyLocation: any;
+  Destinationname:any;
+  Url:any;
   map: any;
-  switch: string = "map";
+
+
 
 
 
@@ -36,7 +40,9 @@ export class CartePage  {
 
               public zone: NgZone,
               private geolocation: Geolocation,
-               public platform: Platform,) {
+               public platform: Platform,
+              public alertCtrl: AlertController,
+              public toastCtrl: ToastController) {
 
 
 
@@ -60,69 +66,46 @@ export class CartePage  {
     let locationOptions = {timeout: 10000, enableHighAccuracy: true};
 
     this.geolocation.getCurrentPosition(locationOptions).then((position) => {
-
+console.log(this.geolocation);
       let options = {
         center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
-
+var pos = {
+  lat: position.coords.latitude,
+  lng: position.coords.longitude
+};
+      this.MyLocation=pos;
+      console.log('mylocation',this.MyLocation);
       /* Show our lcoation */
       this.map = new google.maps.Map(document.getElementById("map"), options);
-
+      google.maps.event.addListener(this.map, 'bounds_changed', () => {
+        this.zone.run(() => {
+          this.resizeMap();
+        });
+      });
       /* We can show our location only if map was previously initialized */
       this.showMyLocation();
       //init autocomplete
       this.initAutocomplete();
 
 
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+
+
   }
-
-
-  initAutocomplete(): void {
-    // reference : https://github.com/driftyco/ionic/issues/7223
-    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-    this.createAutocomplete(this.addressElement).subscribe((location) => {
-      console.log('Searchdata', location);
-
-      let options = {
-        center: location,
-        zoom: 10
-      };
-      this.map.setOptions(options);
-      this.addMarker(location, "Mein gesuchter Standort");
-
-
-    });
-  }
-
-  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
-    const autocomplete = new google.maps.places.Autocomplete(addressEl);
-    autocomplete.bindTo('bounds', this.map);
-    return new Observable((sub: any) => {
-      google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-          sub.error({
-            message: 'Autocomplete returned place with no geometry'
-          });
-        } else {
-
-          console.log('Search Lat', place.geometry.location.lat());
-          console.log('Search Lng', place.geometry.location.lng());
-          sub.next(place.geometry.location);
-         // sub.complete();
-        }
-
-      });
-    });
+  resizeMap() {
+    setTimeout(() => {
+      google.maps.event.trigger(this.map, 'resize');
+    }, 200);
   }
   mapsSearchBar(ev: any) {
     // set input to the value of the searchbar
-    this.search = ev.target.value;
+    //this.search = ev.target.value;
     console.log(ev);
     const autocomplete = new google.maps.places.Autocomplete(ev);
     autocomplete.bindTo('bounds', this.map);
@@ -135,22 +118,86 @@ export class CartePage  {
           });
         } else {
           sub.next(place.geometry.location);
-          //sub.complete();
+          sub.complete();
+        }
+      });
+    });
+  }
+
+  initAutocomplete(): void {
+    // reference : https://github.com/driftyco/ionic/issues/7223
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 10
+      };
+      this.map.setOptions(options);
+      this.addMarker(location,  this.Destinationname);
+
+    });
+
+
+  }
+
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        console.log('place name',place);
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          this.Destinationname=place.formatted_address;
+          this.Url=place.url;
+console.log(this.Destinationname);
+          console.log(this.Url)
+        this.Destination={
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        };;
+         console.log('objet Destination:',this.Destination);
+
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+
+         // sub.complete();
         }
 
       });
     });
   }
+
   addMarker(position, content) {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: position
     });
+    this.addInfoWindow(marker, content);
     return marker;
 
-
   }
+  addInfoWindow(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content,
+
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
+
+
 
 
 
@@ -177,6 +224,73 @@ export class CartePage  {
 
   //pour la recherche de place
 
+  request(){
+    if(this.Destination){
+      this.navCtrl.push('RequestPage', {
+        param1: this.Destination,
+        param2: this.MyLocation
+      });
+    }
+    else{
 
+        const alert = this.alertCtrl.create({
+          title: 'Erreur!',
+          subTitle: 'veuillez sélectionner  une destination dans la barre de recherche !',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+
+
+  }
+  showPrompt() {
+    if (this.Destinationname) {
+    
+
+      const prompt = this.alertCtrl.create({
+        title: 'Commande!',
+        subTitle: "Confirmer votre commandes !",
+        message: "Votre destination est sur  " + this.Destinationname+" le lien est "+this.Url,
+
+        inputs: [
+          {
+            name: 'title',
+            placeholder: 'Votre prix'
+          },
+
+        ],
+
+        buttons: [
+          {
+            text: 'Retour',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Confirmer',
+            handler: data => {
+                const toast = this.toastCtrl.create({
+                  message: 'Votre commandes a été bien envoyer!',
+                  duration: 6000
+                });
+                toast.present();
+
+              console.log('Saved clicked');
+            }
+          }
+        ]
+      });
+      prompt.present();
+    }
+    else{
+      const alert = this.alertCtrl.create({
+        title: 'Erreur!',
+        subTitle: 'veuillez sélectionner  une destination dans la barre de recherche !',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+  }
 
 }

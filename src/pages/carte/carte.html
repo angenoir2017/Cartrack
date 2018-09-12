@@ -15,12 +15,32 @@
     </ion-title>
   </ion-navbar>
   <ion-toolbar color="primary">
-    <ion-searchbar #searchbar [(ngModel)]=" destinationclient" placeholder="Où voulez-vous Habitez ?" ></ion-searchbar>
+    <ion-searchbar #searchbar placeholder="Où voulez-vous Allez ?" ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
   <div class="map-wrapper">
+    <ion-fab right middle>
+      <button ion-fab (click)=" initializeMap()"><ion-icon name="ios-locate-outline"></ion-icon></button>
+    </ion-fab>
+
     <div #map id="map"></div>
-    </div>
+    <div class="buttonn">
+      <ion-grid>
+        <ion-row>
+          <ion-col align-self-stretch>
+            <button ion-button color="primary" (click)='request()' full >Destination </button>
+          </ion-col >
+          <ion-col style="text-align: center;color:white;" >
+          <button  ion-button  full> <ion-icon name="md-notifications">
+          </ion-icon> </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button color="primary" (click)='showPrompt()' full>Commander </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+  </div>
 </ion-content>
