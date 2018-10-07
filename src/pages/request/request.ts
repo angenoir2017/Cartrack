@@ -1,7 +1,6 @@
-import { Component , ElementRef, ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
 
 declare var google;
 /**
@@ -17,11 +16,14 @@ declare var google;
   templateUrl: 'request.html',
 })
 export class RequestPage {
-  @ViewChild('directionsPanel') directionsPanel: ElementRef;
+
   public latitude: any;
   public longitude: any;
 Destination:any;
   MyLocation: any;
+  Destinationname:any;
+  trajetdistance:any;
+  trajetduration:any;
 
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
@@ -37,66 +39,24 @@ Destination:any;
   }
 
   ionViewDidLoad(){
-    this. initializeMap();
-
-  }
-
-  initializeMap() {
-
-    let locationOptions = {timeout: 10000, enableHighAccuracy: true};
-
-    this.geolocation.getCurrentPosition(locationOptions).then((position) => {
-      this.test=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      let options = {
-        center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-        zoom: 100,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-
-      /* Show our lcoation */
-      this.map = new google.maps.Map(document.getElementById("map_canvas"), options);
-
-      /* We can show our location only if map was previously initialized */
-      this.showMyLocation();
-      this.calculateAndDisplayRoute();
-      //this.getDirections();
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
+    this.calculateAndDisplayRoute();
+    this.getDirections();
+    this.Destinationname=this.navParams.get('param3');
   }
 
 
-  showMyLocation(){
-
-
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    let markerInfo = "<h4>You are here!</h4>";
-
-    let infoModal = new google.maps.InfoWindow({
-      content: markerInfo
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoModal.open(this.map, marker);
-    });
-  }
 
   calculateAndDisplayRoute() {
 
     this.Destination= this.navParams.get('param1');
     this.MyLocation= this.navParams.get('param2');
+    this.Destinationname=this.navParams.get('param3');
     console.log('my location',this.MyLocation);
     console.log('my location',this.Destination);
     let directionsService = new google.maps.DirectionsService;
     let directionsDisplay = new google.maps.DirectionsRenderer;
     const map = new google.maps.Map(document.getElementById('map_canvas'), {
-      zoom: 6,
+      zoom: 1,
     });
     directionsDisplay.setMap(map);
 
@@ -130,7 +90,7 @@ Destination:any;
   getDirections(){
 
     this.directionsDisplay.setMap(this.map);
-    this.directionsDisplay.setPanel(this.directionsPanel.nativeElement);
+
 
     this.directionsService.route({
       origin : this.MyLocation,
@@ -152,9 +112,11 @@ Destination:any;
           // Code ommited to display distance and duration
           let x = i+1;
           // Display the distance:
+         this.trajetdistance=  this.distance = 1 +') '+ response.routes[0].legs[0].distance.text +', ' ;
           this.distance += x +') '+ response.routes[i].legs[0].distance.text +', ' ;
           console.log('distance',this.distance);
           // Display the duration:
+          this.trajetduration= response.routes[0].legs[0].duration.text +', ' ;
           this.duration += x +') '+ response.routes[i].legs[0].duration.text +', ' ;
           console.log('duration',this.duration);
         }

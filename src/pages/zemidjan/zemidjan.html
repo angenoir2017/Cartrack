@@ -15,20 +15,89 @@
       </ion-icon> Cartrak
     </ion-title>
 </ion-navbar>
-  <ion-toolbar color="primary">
 
-    <!--  [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" pour recuperer les saisis de l'utilisateur
-    on doit faire un travail sur le fichier ts de cet HTML
-    -->
-    <ion-searchbar  placeholder="Où voulez-vous aller ?"></ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
 
 
 <ion-content >
-  <div class="map-wrapper">
+  <ion-card>
 
-    <div #map id="map"></div>
-  </div>
+  <ion-card-content>
+    <img src="../../assets/imgs/avatar.jpg"/>
+    <ion-card-title>
+      Mr.kaka mawu
+
+    </ion-card-title>
+    <ion-item>
+      <p> Distance : 14 miles</p>
+      <p>Popularité : <ion-icon name="star" item-right></ion-icon>
+        <ion-icon name="star" item-right=""></ion-icon>
+        <ion-icon name="star" item-right=""></ion-icon> </p>
+
+      <button ion-button color="dark" full large >Commander</button>
+    </ion-item>
+
+  </ion-card-content>
+</ion-card>
+  <ion-card>
+
+    <ion-card-content>
+      <img src="../../assets/imgs/avatar.jpg"/>
+      <ion-card-title>
+        Mr.akaida
+
+      </ion-card-title>
+      <ion-item>
+        <p> Distance : 14 miles</p>
+        <p>Popularité : <ion-icon name="star" item-right></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon> </p>
+
+        <button ion-button color="dark" full large >Commander</button>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+
+    <ion-card-content>
+      <img src="../../assets/imgs/avatar.jpg"/>
+      <ion-card-title>
+        Mr.loser
+
+      </ion-card-title>
+      <ion-item>
+        <p> Distance : 14 miles</p>
+        <p>Popularité : <ion-icon name="star" item-right></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon> </p>
+
+        <button ion-button color="dark" full large >Commander</button>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+
+    <ion-card-content>
+      <div class="profile">
+      <img class="profile-picture" src="../../assets/imgs/avatar.jpg"/>
+      </div>
+      <ion-card-title>
+        Mr.manu manu
+
+      </ion-card-title>
+      <ion-item>
+        <p> Distance : 14 miles</p>
+        <p>Popularité : <ion-icon name="star" item-right></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon>
+          <ion-icon name="star" item-right=""></ion-icon> </p>
+
+        <button ion-button color="dark" full large >Commander</button>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

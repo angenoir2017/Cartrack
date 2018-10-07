@@ -19,6 +19,49 @@
 
   <div #map_canvas id="map_canvas"></div>
 
+<div class="request"> <ion-card style="background-color: transparent">
 
+  <ion-card-header style="background-color: #ffc107">
+
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-row>
+      <ion-col style="text-align:center;" class="col-md-3" >
+       <ion-icon name="md-pin" align-items-center>
+        </ion-icon>
+      </ion-col>
+      <ion-col class="col-md-6" >
+
+
+      </ion-col>
+      <ion-col style="text-align:center;" class="col-md-3" >
+      <ion-icon name="md-time" align-items-center="">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col-md-9" >
+        <p>{{this.Destinationname}}</p>
+      </ion-col>
+      <ion-col class="col-md-8" >
+
+      </ion-col>
+      <ion-col class="col-md-3" >
+        <p>{{this.trajetduration}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="col-md-8" >
+        <button ion-button color="primary" (click)='request()'full>Annuler</button>
+      </ion-col>
+        <ion-col class="col-md-8" >
+          <button ion-button color="primary" (click)='request()'full>Confirmer</button>
+        </ion-col>
+      </ion-row>
+  </ion-card-content>
+
+</ion-card></div>
 
 </ion-content>

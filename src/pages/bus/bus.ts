@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 
 
-declare var google;
+
+
 
 @IonicPage()
 @Component({
@@ -12,39 +12,22 @@ declare var google;
 })
 export class BusPage {
   public map;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
+  menus =[
+    {title:'Paiement de tickéts', icon: 'cash', icon1: 'md-arrow-dropright'},
+    {title:'Itinéraire de Bus', icon: 'md-locate', icon1: 'md-arrow-dropright'},
+    {title:'Entreprise de transports', icon: 'bus', icon1: 'md-arrow-dropright'},
+    {title:'Arrêt de bus', icon: 'flag', icon1:'md-arrow-dropright'},
+    {title:'Historique', icon: 'md-sync', icon1:'md-arrow-dropright'},
+    {title:'Favoris', icon: 'star', icon1:'md-arrow-dropright'}
+  ];
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   //@ Créons a present la carte google avec une longLat en parametre
-  createMap(){
-    // Obtenir la position du telephone
-    this.geolocation.getCurrentPosition().then(location => {
 
-      //On le converti en un objet de longitude et de latitude de google map
-      //lui meme si non la carte ne fonctionnera pas avec les longLat de geolocation
-      let latLng = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
-
-      //Definissons les options primaires de la Map(Carte de Cartrack)
-      let mapOptions ={
-        center:latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI:true
-      }
-
-      //Ici on obtient l'element du HTML qui doit afficher la carte
-      let mapEl = document.getElementById('map');
-      let map = new google.maps.Map(mapEl, mapOptions);
-
-      return map;
-    });
-
-
-  }
 
   ionViewDidLoad() {
-    this.map = this.createMap();
+
   }
 
 }

@@ -21,12 +21,15 @@ export class MyApp {
   rootPage:any =CartePage;
 
   menus =[
-    {title:'Cartrack', icon: 'map', component: CartePage},
-    {title:'Bus', icon: 'bus', component: BusPage},
-    {title:'Zemidjan', icon: 'bicycle', component: ZemidjanPage},
-    {title:'Taxi', icon: 'car' ,component:TaxiPage},
-    {title:'Paramètre', icon: 'cog', component: ParametrePage},
-    {title:' Nous Contacter', icon: 'contact', component: ContactPage}
+    {title:'Cartrack', icon: 'map', icon1: 'md-arrow-dropright',component: CartePage},
+    {title:'Bus', icon: 'bus',icon1: 'md-arrow-dropright', component: BusPage},
+    {title:'Zemidjan', icon: 'bicycle',icon1: 'md-arrow-dropright', component: ZemidjanPage},
+    {title:'Taxi', icon: 'car' ,icon1: 'md-arrow-dropright',component:TaxiPage},
+    {title:'Paiement', icon: 'card' ,icon1: 'md-arrow-dropright',component:TaxiPage},
+    {title:'Partager', icon: 'share' ,icon1: 'md-arrow-dropright',component:TaxiPage},
+    {title:'Profil', icon: 'person' ,icon1: 'md-arrow-dropright',component:TaxiPage},
+    {title:'Paramètres', icon: 'md-settings',icon1: 'md-arrow-dropright', component: ParametrePage},
+    {title:'Contact', icon: 'information',icon1: 'md-arrow-dropright', component: ContactPage}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
