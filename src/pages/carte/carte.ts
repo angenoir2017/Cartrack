@@ -6,7 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from 'rxjs/Observable';
 
 declare var google: any;
-
+//OOOOOOOOOOOOOOOOOO
 
 /**
  * Ici sera chargé le composant de google map avec ses differents parametres
