@@ -1,0 +1,30 @@
+page-request {
+  #map_canvas {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute!important;
+    overflow: hidden!important;
+  }
+  #map_direct {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute!important;
+    overflow: hidden!important;
+  }
+  .buttonn
+  {
+
+    width: 100%;
+    height: 10%;
+  }
+  .request{
+    top: 55%;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}

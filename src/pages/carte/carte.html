@@ -9,18 +9,32 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-title>
       <ion-icon name="bus" item-start>
-      </ion-icon> Cartrak
+      </ion-icon> Cartrack
     </ion-title>
+
   </ion-navbar>
   <ion-toolbar color="primary">
-    <ion-searchbar #searchbar [(ngModel)]=" destinationclient" placeholder="Où voulez-vous Habitez ?" ></ion-searchbar>
+    <ion-searchbar #searchbar placeholder="Où voulez-vous Allez ?" ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
+
   <div class="map-wrapper">
+    <ion-fab  right  style="top:45px">
+      <button ion-fab (click)=" initializeMap()"><ion-icon name="ios-locate-outline"></ion-icon></button>
+    </ion-fab>
     <div #map id="map"></div>
-    </div>
+    <div class="buttonn">
+        <ion-row>
+          <ion-col class="col-md-8" >
+            <button ion-button color="primary" (click)='request()'full>Commander </button>
+          </ion-col>
+        </ion-row>
+
+  </div>
+  </div>
 </ion-content>
