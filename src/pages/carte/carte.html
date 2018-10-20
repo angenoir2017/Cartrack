@@ -27,12 +27,20 @@
     <ion-fab  right  style="top:45px">
       <button ion-fab (click)=" initializeMap()"><ion-icon name="ios-locate-outline"></ion-icon></button>
     </ion-fab>
+    <ion-fab  right  style="top:110px">
+      <button ion-fab (click)=" initializeMap()"><ion-icon name="home"></ion-icon></button>
+    </ion-fab>
     <div #map id="map"></div>
     <div class="buttonn">
         <ion-row>
-          <ion-col class="col-md-8" >
-            <button ion-button color="primary" (click)='request()'full>Commander </button>
+          <ion-col class="col-md-1" >
+            <button ion-button color="primary" (click)='request()' full > messages</button>
           </ion-col>
+          <ion-col class="col-md-10" >
+            <button ion-button color="primary" (click)='request()' full>Soummetre </button>
+          </ion-col> <ion-col class="col-md-1" >
+          <button ion-button color="primary" (click)='request()' full >cartrack</button>
+        </ion-col>
         </ion-row>
 
   </div>

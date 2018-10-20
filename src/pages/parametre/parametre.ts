@@ -14,12 +14,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'parametre.html',
 })
 export class ParametrePage {
-
+  menus =[
+    {title:'profils', icon: 'person', component: 'ParametrePage'}
+  ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParametrePage');
   }
-
+  onPage(theComponent){
+    this.navCtrl.push(theComponent);
+  }
 }

@@ -18,25 +18,23 @@
 
 
   <div #map_canvas id="map_canvas"></div>
-
-<div class="request"> <ion-card style="background-color: transparent">
-
-  <ion-card-header style="background-color: #ffc107">
-
-  </ion-card-header>
-
-  <ion-card-content>
+<div>
+  <ion-grid style="background-color: black; text-align: center; font-size:12px">
+    <p style="color:white"> Votre commande</p>
+  </ion-grid>
+  <ion-grid>
     <ion-row>
       <ion-col style="text-align:center;" class="col-md-3" >
-       <ion-icon name="md-pin" align-items-center>
+        <ion-icon name="md-pin" align-items-center>
         </ion-icon>
       </ion-col>
-      <ion-col class="col-md-6" >
+      <ion-col class="col-md-6" style="text-align:center;">
 
-
+        <ion-icon name="md-flag" align-items-center>
+        </ion-icon>
       </ion-col>
       <ion-col style="text-align:center;" class="col-md-3" >
-      <ion-icon name="md-time" align-items-center="">
+        <ion-icon name="md-time" align-items-center="">
         </ion-icon>
       </ion-col>
     </ion-row>
@@ -44,24 +42,46 @@
       <ion-col class="col-md-9" >
         <p>{{this.Destinationname}}</p>
       </ion-col>
-      <ion-col class="col-md-8" >
-
+      <ion-col class="col-md-8" style="text-align: center">
+        <p> {{this.trajetdistance}}</p>
       </ion-col>
       <ion-col class="col-md-3" >
         <p>{{this.trajetduration}}</p>
       </ion-col>
     </ion-row>
-
+    <ion-grid style="background-color: black;text-align: center;font-size: 12px">
+      <p style="color:white"> Votre Moyen de transport</p>
+    </ion-grid>
     <ion-row>
-      <ion-col class="col-md-8" >
-        <button ion-button color="primary" (click)='request()'full>Annuler</button>
+      <ion-col>
+        <ion-item>
+          <ion-label>Zémidjan</ion-label>
+          <ion-checkbox color="dark" checked="false"></ion-checkbox>
+        </ion-item>
       </ion-col>
-        <ion-col class="col-md-8" >
-          <button ion-button color="primary" (click)='request()'full>Confirmer</button>
-        </ion-col>
-      </ion-row>
-  </ion-card-content>
+      <ion-col>
+        <ion-item>
+          <ion-label>Taxi</ion-label>
+          <ion-checkbox color="dark" checked="false"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-grid style="background-color: black;text-align: center;font-size: 12px">
+      <p style="color:white">Votre prix</p>
+    </ion-grid>
+    <ion-row>
+      <ion-item>
+        <ion-label>Prix</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col-md-8" style="position: center" >
+        <button ion-button color="primary" (click)='request()'full>Confirmer</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 
-</ion-card></div>
 
 </ion-content>
