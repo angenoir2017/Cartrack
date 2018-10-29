@@ -161,7 +161,6 @@ this.MylocationName=result[0].locality;
           });
         } else {
           this.Destinationname=place.name;
-          this.Destinationname += ','+place.formatted_address;
           this.Url=place.url;
 console.log('destination',this.Destinationname);
           console.log(this.Url);

@@ -27,7 +27,7 @@ export class MyApp {
     {title:'Taxi', icon: 'car' ,icon1: 'md-arrow-dropright',component:TaxiPage},
     {title:'Paiement', icon: 'card' ,icon1: 'md-arrow-dropright',component:TaxiPage},
     {title:'Partager', icon: 'share' ,icon1: 'md-arrow-dropright',component:TaxiPage},
-    {title:'Profil', icon: 'person' ,icon1: 'md-arrow-dropright',component:TaxiPage},
+    {title:'Historique', icon: 'md-sync', icon1:'md-arrow-dropright'},
     {title:'Paramètres', icon: 'md-settings',icon1: 'md-arrow-dropright', component: ParametrePage},
     {title:'Contact', icon: 'information',icon1: 'md-arrow-dropright', component: ContactPage}
   ];

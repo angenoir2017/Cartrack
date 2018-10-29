@@ -17,6 +17,15 @@
   </ion-navbar>
 </ion-header>
 
+<ion-content>
+
+  <ion-list >
+    <ion-item *ngFor="let m of menus" (click)="onPage(m.component)">
+      <ion-icon name="{{m.icon}}" item-start></ion-icon>
+      {{m.title}}
+    </ion-item>
+  </ion-list>
+</ion-content>
 
 
 <ion-content padding>

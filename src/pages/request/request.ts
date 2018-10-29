@@ -112,12 +112,12 @@ Destination:any;
           // Code ommited to display distance and duration
           let x = i+1;
           // Display the distance:
-         this.trajetdistance=  this.distance = 1 +') '+ response.routes[0].legs[0].distance.text +', ' ;
+         this.trajetdistance=  this.distance = ''+ response.routes[0].legs[0].distance.text +'' ;
           this.distance += x +') '+ response.routes[i].legs[0].distance.text +', ' ;
           console.log('distance',this.distance);
           // Display the duration:
-          this.trajetduration= response.routes[0].legs[0].duration.text +', ' ;
-          this.duration += x +') '+ response.routes[i].legs[0].duration.text +', ' ;
+          this.trajetduration= response.routes[0].legs[0].duration.text +'' ;
+          this.duration += x +') '+ response.routes[i].legs[0].duration.text +'' ;
           console.log('duration',this.duration);
         }
 

@@ -16,9 +16,7 @@ export class BusPage {
     {title:'Paiement de tickéts', icon: 'cash', icon1: 'md-arrow-dropright'},
     {title:'Itinéraire de Bus', icon: 'md-locate', icon1: 'md-arrow-dropright'},
     {title:'Entreprise de transports', icon: 'bus', icon1: 'md-arrow-dropright'},
-    {title:'Arrêt de bus', icon: 'flag', icon1:'md-arrow-dropright'},
-    {title:'Historique', icon: 'md-sync', icon1:'md-arrow-dropright'},
-    {title:'Favoris', icon: 'star', icon1:'md-arrow-dropright'}
+    {title:'Arrêt de bus', icon: 'flag', icon1:'md-arrow-dropright'}
   ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
